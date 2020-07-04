@@ -1,2 +1,2 @@
 # Voice-Recognition-bot
-Bluetooth - Arduino
+Tkinter-based GUI for a voice recognition bot.
