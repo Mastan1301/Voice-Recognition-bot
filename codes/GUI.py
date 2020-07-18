@@ -1,3 +1,5 @@
+# This program generates a GUI using which, we can send commands to the bot.
+
 import Tkinter as tk
 import tkMessageBox as tkm
 import serial
@@ -16,11 +18,6 @@ bd_addr = '00:18:E4:40:00:06'#HC - 05 MAC Address. You need to enter your own mo
 top = tk.Tk()
 top.title("~VOICE RECOG~")
 top.configure(background = "black")
-
-
-
-
-
 
 
 def scan():
