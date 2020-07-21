@@ -176,13 +176,13 @@ def record():
 label = tk.Label(top, text = "Arduino-Bluetooth")
 label.place(anchor = 's')
  	
-loadimage = tk.PhotoImage(file="Bluetooth.png")
+loadimage = tk.PhotoImage(file="../Figures/Bluetooth.png")
 b1 = tk.Button(top, image= loadimage, command = welc)
 b1["bg"] = "black"
 b1["border"] = "0"
 b1.grid(row = 3, column = 1)
 	
-image1 = tk.PhotoImage(file='mic.png').subsample(6, 6)
+image1 = tk.PhotoImage(file='../Figures/mic.png').subsample(6, 6)
 b2 = tk.Button(top, text= "Click here to give voice command", command = record,image = image1)
 b2["bg"] = "white"
 b2["border"] = "0"
