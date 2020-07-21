@@ -124,7 +124,7 @@ def record():
 
 
 	pred = np.argmax(nn_forward(data, W1, b))
-	print nn_forward(data, W1, b)
+	print(nn_forward(data, W1, b))
 
 	q[pred] +=1 
 	 
