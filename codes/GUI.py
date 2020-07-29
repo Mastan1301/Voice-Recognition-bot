@@ -1,7 +1,7 @@
 # This program generates a GUI using which, we can send commands to the bot.
 
-import Tkinter as tk
-import tkMessageBox as tkm
+import tkinter as tk
+import tkinter.messagebox as tkm
 import serial
 import pyaudio
 import wave
