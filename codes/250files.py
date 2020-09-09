@@ -1,4 +1,3 @@
-# Source: https://github.com/raktimgg/ML-algorithm-for-speech-recognition
 # This program is for collecting dataset.
 
 import numpy as np
