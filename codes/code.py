@@ -104,7 +104,7 @@ for i in range (0,6250): # manually assigning labels
 y3l = np.append(y3,y,axis=1)
 print("y3l shape {}".format(y3l.shape))  
 
-y4 = np.empty([6250,4043])                      # reading all the stop.wav files, coverting to mfcc format, adding labels and storing in an array   
+y4 = np.empty([6250,4043]) # reading all the stop.wav files, coverting to mfcc format, adding labels and storing in an array   
 for j in range(0,6250):
     b = "stop"+str(j)+".wav"
     #print b
@@ -113,7 +113,7 @@ for j in range(0,6250):
     data = data1.reshape(4043,)
     y4[j]=data
 y = np.empty([6250,5])
-for i in range (0,6250):                         # manually assigning labels
+for i in range (0,6250): # manually assigning labels
     y[i][0]=0.0
     y[i][1]=0.0
     y[i][2]=0.0
@@ -122,7 +122,7 @@ for i in range (0,6250):                         # manually assigning labels
 y4l = np.append(y4,y,axis=1)
 print("y4l shape {}".format(y4l.shape))
 
-trains = np.empty([27500,4048])                   # using the first 5500 elements of each word in the train set 
+trains = np.empty([27500,4048]) # using the first 5500 elements of each word in the train set 
 k=0
 for j in range(0,5500):
     trains[j]=y0l[k]
@@ -179,11 +179,9 @@ losses = []
 def nn_forward(X, Y, W1, b): # function which is called to predict output
     x = X.reshape(-1, nIn)
     Y = Y.reshape(-1, nOut)
-    #print x.shape
     layer2 = np.dot(x,W1) + b
     out= sigmoid(layer2)
     loss = np.sum(0.5 * (Y - out)**2)
-    #losses1.append(loss)
     return out
 
 def train(X, Y, W1, b): # function used to train the dataset
@@ -193,28 +191,14 @@ def train(X, Y, W1, b): # function used to train the dataset
     layer2 = np.dot(x,W1) + b 
     a_out = sigmoid(layer2)
     
-    
-    #out = np.dot(a_layer2, W2)
-    #a_out = sigmoid(out)
-    
-    loss = np.sum(0.5 * (Y - a_out)**2)                 # cost function
-    #losses.append(loss)
-    delta_loss = (Y - a_out) * -sigmoidprime(a_out)     # finding delta loss
-    delta_W1 = np.dot(x.T, delta_loss)                  # delta W1 = X(transpose) dot deltaloss
+    loss = np.sum(0.5 * (Y - a_out)**2) # cost function
+    delta_loss = (Y - a_out) * -sigmoidprime(a_out) # finding delta loss
+    delta_W1 = np.dot(x.T, delta_loss) # delta W1 = X(transpose) dot deltaloss
     delta_b  = delta_loss 
     
-    #delta_loss = np.dot(delta_loss, W2.T) * sigmoidprime(layer2)
-    #delta_W1 = np.dot(X.T.reshape(nIn, 1), delta_loss)
+    W1 = W1 - lr * delta_W1 # updating value of W1 using gradient descent
+    b = b - lr*delta_b  # updating value of b using gradient descent
 
-    #print ("a_out",a_out)
-    #print Y
-    
-    W1 = W1 - lr * delta_W1                             # updating value of W1 using gradient descent
-    b = b - lr*delta_b                                  # updating value of b using gradient descent
-
-    #aw1.append(W1)
-    #aw2.append(W2)
-    
     return W1, loss, a_out, b
 
 W1 = np.random.rand(nIn, nOut) * 0.5 # W1 and b randomly initialised
@@ -222,27 +206,33 @@ b  = np.random.rand(1 , nOut)
      
 trainX = np.empty([27500,4043]) # spliting of train set into features and labels          
 trainY = np.empty([27500,5])
+
 for i in range(0,27500):
     trainX[i]=trains[i][:4043]
+
 for i in range(0,27500):
     trainY[i]=trains[i][4043:]
+
 print("trainX shape {}".format(trainX.shape))
 print("trainY shape {}".format(trainY.shape))
 
 testX = np.empty([3750,4043]) # spliting of test set into features and labels  
 testY = np.empty([3750,5])
+
 for i in range(0,3750):
     testX[i]=tests[i][:4043]
+
 for i in range(0,3750):
     testY[i]=tests[i][4043:]
+
 print("testX shape {}".format(testX.shape))
 print("testY shape {}".format(testY.shape))
 
 for j in range(nEpochs): # traing the dataset
     for i in range(trainX.shape[0]):
         W1, loss, a_out, b = train(trainX[i], trainY[i], W1, b)
+        
     print("Epoch {} Loss: {}".format(j, loss))
-    #print a_out
     losses.append(loss)          
             
      
@@ -263,13 +253,3 @@ print("Accuracy: {}%".format((correct*1.0)/total * 100))
 
 np.savetxt('W1.out',W1,delimiter = ',') # values of W1 and b stored in different files to be used in the raspberry pi
 np.savetxt('b.out',b,delimiter = ',')
-#nE = np.linspace(1,500,500)
-nE1 = np.linspace(1,nEpochs,nEpochs) # plotting loss with respect to no. of epochs
-plt.plot(nE1,losses)
-#plt.plot(nE,losses1)
-#print W1
-#print W1.shape
-#plt.grid()
-#plt.show()
-
-#print aw2 
