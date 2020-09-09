@@ -151,22 +151,27 @@ k = 5500
 for j in range(0,750):
     tests[j]=y0l[k]
     k=k+1
+    
 k = 5500    
 for j in range(750,1500):
     tests[j]=y1l[k]
     k=k+1
+
 k = 5500 
 for j in range(1500,2250):
     tests[j]=y2l[k]
     k=k+1
+
 k = 5500 
 for j in range(2250,3000):
     tests[j]=y3l[k]
     k=k+1 
+
 k = 5500
 for j in range(3000,3750):
     tests[j]=y4l[k]
     k=k+1 
+
 print("tests shape {}".format(tests.shape))
 np.random.shuffle(tests)
 
@@ -231,7 +236,7 @@ print("testY shape {}".format(testY.shape))
 for j in range(nEpochs): # traing the dataset
     for i in range(trainX.shape[0]):
         W1, loss, a_out, b = train(trainX[i], trainY[i], W1, b)
-        
+
     print("Epoch {} Loss: {}".format(j, loss))
     losses.append(loss)          
             
